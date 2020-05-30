@@ -1,3 +1,2 @@
-test.exe
-pmon.exe
-pmon.zip
+*.exe
+config.yml
