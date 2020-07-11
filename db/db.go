@@ -5,6 +5,7 @@ import (
 	"github.com/jinzhu/gorm"
 )
 
+// Mysql ...
 func Mysql(name string) *gorm.DB {
 	db, ok := mysqlDBs[name]
 	if ok {
@@ -13,6 +14,7 @@ func Mysql(name string) *gorm.DB {
 	panic("mysql db not configured")
 }
 
+// Mssql ...
 func Mssql(name string) *gorm.DB {
 	db, ok := mssqlDBs[name]
 	if ok {
@@ -21,6 +23,7 @@ func Mssql(name string) *gorm.DB {
 	panic("mysql db not configured")
 }
 
+// Redis ...
 func Redis() redis.Conn {
 	if redisPool == nil {
 		panic("redis db not configured")
@@ -28,6 +31,7 @@ func Redis() redis.Conn {
 	return redisPool.Get()
 }
 
+// Init ...
 func Init() {
 	initMssql()
 	initMysql()

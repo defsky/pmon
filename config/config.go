@@ -12,7 +12,7 @@ import (
 const defaultConfigRootNode string = "app"
 
 var (
-	appConfig applicationConfig
+	appConfig ApplicationConfig
 )
 
 type redisConfig struct {
@@ -45,15 +45,18 @@ type databaseConfig struct {
 	Mysql map[string]mysqlConfig
 }
 
-type applicationConfig struct {
+// ApplicationConfig ...
+type ApplicationConfig struct {
 	DB     *databaseConfig
 	Target string
 }
 
-func GetConfig() *applicationConfig {
+// GetConfig ...
+func GetConfig() *ApplicationConfig {
 	return &appConfig
 }
 
+// Init ...
 func Init() {
 	cfgFile, err := filepath.Abs(filepath.Dir(os.Args[0]))
 	if err != nil {
@@ -78,12 +81,12 @@ func Init() {
 	}
 	appConfig.DB = &databaseConfig{}
 
-	for dbType, _ := range dbTypes {
+	for dbType := range dbTypes {
 		switch dbType {
 		case "mssql":
 			appConfig.DB.Mssql = make(map[string]mssqlConfig)
 			cfgs := config.Get(defaultConfigRootNode, "database", "mssql").StringMap(map[string]string{})
-			for k, _ := range cfgs {
+			for k := range cfgs {
 				cfg := &mssqlConfig{}
 				if err := config.Get(defaultConfigRootNode, "database", "mssql", k).Scan(cfg); err != nil {
 					panic(err)
@@ -93,7 +96,7 @@ func Init() {
 		case "mysql":
 			appConfig.DB.Mysql = make(map[string]mysqlConfig)
 			cfgs := config.Get(defaultConfigRootNode, "database", "mysql").StringMap(map[string]string{})
-			for k, _ := range cfgs {
+			for k := range cfgs {
 				cfg := &mysqlConfig{}
 				if err := config.Get(defaultConfigRootNode, "database", "mysql", k).Scan(cfg); err != nil {
 					panic(err)

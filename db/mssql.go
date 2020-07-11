@@ -6,6 +6,8 @@ import (
 	"pmon/config"
 
 	"github.com/jinzhu/gorm"
+
+	// mssql driver
 	_ "github.com/jinzhu/gorm/dialects/mssql"
 )
 
@@ -34,6 +36,7 @@ func initMssql() {
 		if err != nil {
 			panic(err)
 		}
+
 		mssqlDBs[name] = db
 	}
 }

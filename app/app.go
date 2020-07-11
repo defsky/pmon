@@ -16,6 +16,7 @@ import (
 	"github.com/kardianos/service"
 )
 
+// Program ...
 type Program struct {
 	IsRunning bool
 	Pname     string
@@ -24,6 +25,7 @@ type Program struct {
 	RedisConn redis.Conn
 }
 
+// Start ...
 func (p *Program) Start(s service.Service) error {
 	config.Init()
 	db.Init()
@@ -37,6 +39,7 @@ func (p *Program) Start(s service.Service) error {
 	return nil
 }
 
+// Stop ...
 func (p *Program) Stop(s service.Service) error {
 	p.RedisConn.Do("SET", p.RedisKeys["status"], 0)
 	p.RedisConn.Close()
